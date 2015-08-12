@@ -171,6 +171,11 @@ public class FloatingActionMenu extends ViewGroup {
         createMenuButton();
     }
 
+    public FloatingActionButton getMenuButton()
+    {
+        return mMenuButton;
+    }
+
     private void initMenuButtonAnimations() {
         mMenuButtonShowAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fab_scale_up);
         mMenuButtonHideAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fab_scale_down);
@@ -437,7 +442,7 @@ public class FloatingActionMenu extends ViewGroup {
     }
 
     private void addLabel(FloatingActionButton fab) {
-        String text = fab.getLabelText();
+        CharSequence text = fab.getLabelText();
 
         if (TextUtils.isEmpty(text)) return;
 
