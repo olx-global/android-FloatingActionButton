@@ -29,12 +29,15 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.nineoldandroids.view.ViewHelper;
 
 public class FloatingActionButton extends ImageButton {
 
@@ -439,11 +442,11 @@ public class FloatingActionButton extends ImageButton {
     private void saveButtonOriginalPosition() {
         if (!mButtonPositionSaved) {
             if (mOriginalX == -1) {
-                mOriginalX = getX();
+                mOriginalX = ViewHelper.getX(this);
             }
 
             if (mOriginalY == -1) {
-                mOriginalY = getY();
+                mOriginalY = ViewHelper.getY(this);
             }
 
             mButtonPositionSaved = true;
@@ -454,14 +457,17 @@ public class FloatingActionButton extends ImageButton {
         float x;
         float y;
         if (mProgressBarEnabled) {
-            x = mOriginalX > getX() ? getX() + mProgressWidth : getX() - mProgressWidth;
-            y = mOriginalY > getY() ? getY() + mProgressWidth : getY() - mProgressWidth;
+            float currentX = ViewHelper.getX(this);
+            float currentY = ViewHelper.getY(this);
+
+            x = mOriginalX > currentX ? currentX + mProgressWidth : currentX - mProgressWidth;
+            y = mOriginalY > currentY ? currentY + mProgressWidth : currentY - mProgressWidth;
         } else {
             x = mOriginalX;
             y = mOriginalY;
         }
-        setX(x);
-        setY(y);
+        ViewHelper.setX(this, x);
+        ViewHelper.setY(this, y);
     }
 
     private void setupProgressBarPaints() {
@@ -670,7 +676,9 @@ public class FloatingActionButton extends ImageButton {
         }
 
         private void init() {
-            setLayerType(LAYER_TYPE_SOFTWARE, null);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+                setLayerType(LAYER_TYPE_SOFTWARE, null);
+            }
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setColor(mColorNormal);
 

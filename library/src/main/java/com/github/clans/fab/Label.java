@@ -328,7 +328,9 @@ public class Label extends TextView {
         }
 
         private void init() {
-            setLayerType(LAYER_TYPE_SOFTWARE, null);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+                setLayerType(LAYER_TYPE_SOFTWARE, null);
+            }
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setColor(mColorNormal);
 

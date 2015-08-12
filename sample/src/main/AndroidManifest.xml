@@ -10,11 +10,7 @@
         <activity
             android:name="com.github.clans.fab.sample.MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:label="@string/floating_action_menu"
@@ -22,6 +18,16 @@
         <activity
             android:label="@string/recyclerview_fab_example"
             android:name="com.github.clans.fab.sample.RecyclerViewActivity" />
+
+        <activity
+            android:label="@string/recyclerview_fab_example"
+            android:name="com.github.clans.fab.sample.FloatingMenusActivity2" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

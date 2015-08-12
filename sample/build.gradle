@@ -6,10 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.github.fab.sample"
-        minSdkVersion 14
+        minSdkVersion 10
         targetSdkVersion 22
-        versionCode Integer.parseInt(project.VERSION_CODE)
-        versionName project.VERSION_NAME
     }
     buildTypes {
         release {

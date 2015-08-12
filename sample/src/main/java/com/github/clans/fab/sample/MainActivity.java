@@ -39,14 +39,14 @@ public class MainActivity extends ActionBarActivity {
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.hide(false);
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 fab.show(true);
                 fab.setShowAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.show_from_bottom));
                 fab.setHideAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.hide_to_bottom));
             }
-        }, 300);
+        }, 300);*/
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
