@@ -221,7 +221,7 @@ public class FloatingActionMenu extends ViewGroup {
 
     private void createMenuButton() {
         mMenuButton = new FloatingActionButton(getContext());
-
+        mMenuButton.setMeasureForProgress(true);
         mMenuButton.mShowShadow = mMenuShowShadow;
         if (mMenuShowShadow) {
             mMenuButton.mShadowRadius = Util.dpToPx(getContext(), mMenuShadowRadius);
@@ -242,6 +242,8 @@ public class FloatingActionMenu extends ViewGroup {
 
         mImageToggle = new ImageView(getContext());
         mImageToggle.setImageDrawable(mIcon);
+
+        //mMenuButton.setImageDrawable(mIcon);
 
         addView(mMenuButton, super.generateDefaultLayoutParams());
         addView(mImageToggle);

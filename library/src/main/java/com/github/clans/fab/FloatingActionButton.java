@@ -71,8 +71,11 @@ public class FloatingActionButton extends ImageButton {
     private boolean mUsingElevationCompat;
 
     // Progress
+
+    private boolean mMeasureForProgress = false;
+
     private boolean mProgressBarEnabled;
-    private int mProgressWidth = Util.dpToPx(getContext(), 6f);
+    private int mProgressWidth = Util.dpToPx(getContext(), 4f);
     private int mProgressColor;
     private int mProgressBackgroundColor;
     private boolean mShouldUpdateButtonPosition;
@@ -137,6 +140,8 @@ public class FloatingActionButton extends ImageButton {
         mProgressMax = attr.getInt(R.styleable.FloatingActionButton_fab_progress_max, mProgressMax);
         mShowProgressBackground = attr.getBoolean(R.styleable.FloatingActionButton_fab_progress_showBackground, true);
 
+        mMeasureForProgress  = attr.getBoolean(R.styleable.FloatingActionButton_fab_measure_for_progress, false);
+
         if (attr.hasValue(R.styleable.FloatingActionButton_fab_progress)) {
             mProgress = attr.getInt(R.styleable.FloatingActionButton_fab_progress, 0);
             mShouldSetProgress = true;
@@ -185,7 +190,7 @@ public class FloatingActionButton extends ImageButton {
 
     private int calculateMeasuredWidth() {
         int width = getCircleSize() + calculateShadowWidth();
-        if (mProgressBarEnabled) {
+        if (mMeasureForProgress || mProgressBarEnabled) {
             width += mProgressWidth * 2;
         }
         return width;
@@ -193,7 +198,7 @@ public class FloatingActionButton extends ImageButton {
 
     private int calculateMeasuredHeight() {
         int height = getCircleSize() + calculateShadowHeight();
-        if (mProgressBarEnabled) {
+        if (mMeasureForProgress || mProgressBarEnabled) {
             height += mProgressWidth * 2;
         }
         return height;
@@ -367,7 +372,7 @@ public class FloatingActionButton extends ImageButton {
         int circleInsetHorizontal = hasShadow() ? mShadowRadius + Math.abs(mShadowXOffset) : 0;
         int circleInsetVertical = hasShadow() ? mShadowRadius + Math.abs(mShadowYOffset) : 0;
 
-        if (mProgressBarEnabled) {
+        if (mMeasureForProgress || mProgressBarEnabled) {
             circleInsetHorizontal += mProgressWidth;
             circleInsetVertical += mProgressWidth;
         }
@@ -456,7 +461,7 @@ public class FloatingActionButton extends ImageButton {
     private void updateButtonPosition() {
         float x;
         float y;
-        if (mProgressBarEnabled) {
+        if (mMeasureForProgress || mProgressBarEnabled) {
             float currentX = ViewHelper.getX(this);
             float currentY = ViewHelper.getY(this);
 
@@ -475,6 +480,17 @@ public class FloatingActionButton extends ImageButton {
         mBackgroundPaint.setStyle(Paint.Style.STROKE);
         mBackgroundPaint.setStrokeWidth(mProgressWidth);
 
+        refreshProgressPaint();
+    }
+
+    public void setProgressColor(int color)
+    {
+        mProgressColor = color;
+        refreshProgressPaint();
+    }
+
+    private void refreshProgressPaint()
+    {
         mProgressPaint.setColor(mProgressColor);
         mProgressPaint.setStyle(Paint.Style.STROKE);
         mProgressPaint.setStrokeWidth(mProgressWidth);
@@ -651,7 +667,7 @@ public class FloatingActionButton extends ImageButton {
             circleInsetHorizontal = hasShadow() ? mShadowRadius + Math.abs(mShadowXOffset) : 0;
             circleInsetVertical = hasShadow() ? mShadowRadius + Math.abs(mShadowYOffset) : 0;
 
-            if (mProgressBarEnabled) {
+            if (mMeasureForProgress || mProgressBarEnabled) {
                 circleInsetHorizontal += mProgressWidth;
                 circleInsetVertical += mProgressWidth;
             }
@@ -1237,5 +1253,9 @@ public class FloatingActionButton extends ImageButton {
         if (label != null) {
             label.setVisibility(visibility);
         }
+    }
+
+    public void setMeasureForProgress(boolean measureForProgress) {
+        this.mMeasureForProgress = measureForProgress;
     }
 }
